@@ -1,24 +1,40 @@
 package com.example.domekwgorach;
 
 import android.os.Bundle;
-
-import androidx.activity.EdgeToEdge;
+import android.widget.Button;
+import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 public class MainActivity extends AppCompatActivity {
+
+    int licznik = 0;
+    TextView like_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
-        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
-            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
-            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
-            return insets;
+
+        like_text = findViewById(R.id.like_text);
+        Button likeB = findViewById(R.id.likeB);
+        Button dislikeB = findViewById(R.id.dislikeB);
+
+
+        likeB.setOnClickListener(v -> {
+            licznik++;
+            like_wyswietlanie();
         });
+
+
+        dislikeB.setOnClickListener(v -> {
+            if (licznik > 0) {
+                licznik--;
+                like_wyswietlanie();
+            }
+        });
+    }
+
+    void like_wyswietlanie() {
+        like_text.setText(licznik + " polubień");
     }
 }
